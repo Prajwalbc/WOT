@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LED Control</title>
+</head>
+<body>
+    <h1>LED Control</h1>
+    <button id="onButton">Turn On</button>
+    <button id="offButton">Turn Off</button>
+    
+    <script>
+        const onButton = document.getElementById('onButton');
+        const offButton = document.getElementById('offButton');
+        
+        onButton.addEventListener('click', () => {
+            fetch('http://127.0.0.1:3000/led/on', { method: 'GET' });
+        });
+
+        offButton.addEventListener('click', () => {
+            fetch('http://127.0.0.1:3000/led/off', { method: 'GET' });
+        });
+    </script>
+</body>
+</html>
