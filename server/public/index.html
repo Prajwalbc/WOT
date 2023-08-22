@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LED Control</title>
+</head>
+<body>
+    <center><h1>WOT</h1></center>
+    <h2>LED Control</h2>
+    <p id="ledStatus">Led status: Off</p>
+    <button id="ledOnButton">Turn On</button>
+    <button id="ledOffButton">Turn Off</button>
+
+    <h2>Ultrasonic Distance</h2>
+    <p id="distance">Distance: N/A</p>
+    <button id="distanceStartBtn">Start Reading</button>
+    <button id="distanceStopBtn">Stop Reading</button>
+    
+    <script>
+        const APIRoutes = {
+            ledOn : "/api/led/on",
+            ledOff: "/api/led/off",
+            ultrasonicDst : "/api/getDistance"
+        };
+
+        // Led
+        const onButton = document.getElementById('ledOnButton');
+        const offButton = document.getElementById('ledOffButton');
+        const ledStatusElement = document.getElementById('ledStatus');
+        
+        onButton.addEventListener('click', () => {
+            fetch(APIRoutes.ledOn, { method: 'GET' });
+            ledStatusElement.textContent = "Led status: On";
+        });
+
+        offButton.addEventListener('click', () => {
+            fetch(APIRoutes.ledOff, { method: 'GET' });
+            ledStatusElement.textContent = "Led status: Off";
+        });
+
+        // Ultrasonic
+        const startButton = document.getElementById("distanceStartBtn");
+        const stopButton = document.getElementById("distanceStopBtn");
+        const distanceElement = document.getElementById("distance");
+
+        let intervalId = null;
+
+        async function fetchDistance() {
+            const response = await fetch(APIRoutes.ultrasonicDst);
+            const data = await response.json();
+            distanceElement.textContent = `Distance: ${data.distance} cm`;
+        }
+
+        startButton.addEventListener("click", () => {
+            intervalId = setInterval(fetchDistance, 1000);
+            startButton.disabled = true;
+            stopButton.disabled = false;
+        });
+
+        stopButton.addEventListener("click", () => {
+            clearInterval(intervalId);
+            intervalId = null;
+            distanceElement.textContent = "Distance: N/A";
+            startButton.disabled = false;
+            stopButton.disabled = true;
+        });
+    </script>
+</body>
+</html>
