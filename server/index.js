@@ -16,12 +16,14 @@ app.get('/', (req, res) => {
 var board = new five.Board();
 var led;
 var proximity;
+var thermometer;
 
 board.on('ready', () => {
   // led initiaization
   led = new five.Led(13);
 
   // ultra sonic initialization
+  // Upload pingFirmata onto the arduino board.
   // CMD : npm install nodebots-interchange -g
   // CMD : interchange install hc-sr04 -a uno -p /dev/ttyACM0 --firmata
   proximity = new five.Proximity({
@@ -34,6 +36,20 @@ board.on('ready', () => {
     // console.log(centimeters + " cm");
     // console.log(inches + " inches");
     // console.log("-----------");
+  });
+
+  // LM35 temperature sensor initialization
+  thermometer = new five.Thermometer({
+    controller: "LM35",
+    pin: "A0"
+  });
+  thermometer.on("change", () => {
+    // const {celsius, fahrenheit, kelvin} = thermometer;
+    // console.log("Thermometer");
+    // console.log("  celsius      : ", celsius);
+    // console.log("  fahrenheit   : ", fahrenheit);
+    // console.log("  kelvin       : ", kelvin);
+    // console.log("--------------------------------------");
   });
 })
 
@@ -52,6 +68,12 @@ app.get('/api/led/off', (req, res) => {
 app.get('/api/getDistance', async (req, res) =>{
   const { centimeters } = proximity;
   res.json({ distance: centimeters });
+});
+
+// Temperature api
+app.get('/api/getTemperature', async (req, res) =>{
+  const {celsius, fahrenheit, kelvin} = thermometer;
+  res.json({ distance: {celsius : celsius, fahrenheit : fahrenheit, kelvin: kelvin} });
 });
 
 // PORT

@@ -10,16 +10,22 @@
     <button id="ledOnButton">Turn On</button>
     <button id="ledOffButton">Turn Off</button>
 
-    <h2>Ultrasonic Distance</h2>
+    <h2>Ultrasonic Distance - HC-SR04</h2>
     <p id="distance">Distance: N/A</p>
     <button id="distanceStartBtn">Start Reading</button>
     <button id="distanceStopBtn">Stop Reading</button>
+
+    <h2>Temperature - LM35</h2>
+    <p id="temperature">Temperature - N/A</p>
+    <button id="temperatureStartBtn">Start Reading</button>
+    <button id="temperatureStopBtn">Stop Reading</button>
     
     <script>
         const APIRoutes = {
             ledOn : "/api/led/on",
             ledOff: "/api/led/off",
-            ultrasonicDst : "/api/getDistance"
+            ultrasonicDst : "/api/getDistance",
+            temperature: "/api/getTemperature"
         };
 
         // Led
@@ -42,7 +48,7 @@
         const stopButton = document.getElementById("distanceStopBtn");
         const distanceElement = document.getElementById("distance");
 
-        let intervalId = null;
+        let u_intervalId = null;
 
         async function fetchDistance() {
             const response = await fetch(APIRoutes.ultrasonicDst);
@@ -51,17 +57,45 @@
         }
 
         startButton.addEventListener("click", () => {
-            intervalId = setInterval(fetchDistance, 1000);
+            u_intervalId = setInterval(fetchDistance, 1000);
             startButton.disabled = true;
             stopButton.disabled = false;
         });
 
         stopButton.addEventListener("click", () => {
-            clearInterval(intervalId);
-            intervalId = null;
+            clearInterval(u_intervalId);
+            u_intervalId = null;
             distanceElement.textContent = "Distance: N/A";
             startButton.disabled = false;
             stopButton.disabled = true;
+        });
+
+        // Temperature LM35
+        const t_startButton = document.getElementById("temperatureStartBtn");
+        const t_stopButton = document.getElementById("temperatureStopBtn");
+        const temperatureElement = document.getElementById("temperature");
+
+        let t_intervalId = null;
+
+        async function fetchTemperature() {
+            const response = await fetch(APIRoutes.temperature); // Replace APIRoutes.temperature with the appropriate API route
+            const data = await response.json();
+            const { celsius, fahrenheit, kelvin } = data.distance; 
+            temperatureElement.textContent = `Temperature - Celsius: ${celsius} °C, Fahrenheit: ${fahrenheit} °F, Kelvin: ${kelvin} K`;
+        }
+
+        t_startButton.addEventListener("click", () => {
+            t_intervalId = setInterval(fetchTemperature, 1000);
+            t_startButton.disabled = true;
+            t_stopButton.disabled = false;
+        });
+
+        t_stopButton.addEventListener("click", () => {
+            clearInterval(t_intervalId);
+            t_intervalId = null;
+            temperatureElement.textContent = "Temperature - N/A";
+            t_startButton.disabled = false;
+            t_stopButton.disabled = true;
         });
     </script>
 </body>
