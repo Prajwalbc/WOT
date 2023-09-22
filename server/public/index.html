@@ -1,25 +1,191 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>LED Control</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>WOT Dashboard</title>
+
+    <!-- Custom fonts for this template-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
 </head>
-<body>
-    <center><h1>WOT</h1></center>
-    <h2>LED Control</h2>
-    <p id="ledStatus">Led status: Off</p>
-    <button id="ledOnButton">Turn On</button>
-    <button id="ledOffButton">Turn Off</button>
 
-    <h2>Ultrasonic Distance - HC-SR04</h2>
-    <p id="distance">Distance: N/A</p>
-    <button id="distanceStartBtn">Start Reading</button>
-    <button id="distanceStopBtn">Stop Reading</button>
+<body id="page-top">
 
-    <h2>Temperature - LM35</h2>
-    <p id="temperature">Temperature - N/A</p>
-    <button id="temperatureStartBtn">Start Reading</button>
-    <button id="temperatureStopBtn">Stop Reading</button>
-    
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+     
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+            <br>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-center mb-4">
+                            <h1 class="h3 mb-0 text-gray-800">WOT - Dashboard</h1>
+                    </div>
+                    <br>
+                    <br>
+                    <!-- Content Row -->
+                    <div class="row justify-content-around">
+
+                        <!-- LED CONTROLLER Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                <h5>Led Controlller</h5></div>
+                                                <p id="ledStatus">Led status: Off</p>
+
+                                                <div >
+                                                    <button type="button" id="ledOnButton" class="btn btn-outline-success mr-3">ON</button>
+                                                <button type="button" id="ledOffButton" class="btn btn-outline-danger">OFF</button>
+                                                </div>
+                                        </div>
+                                        <!-- <div class="col-auto">
+                                            <i class="fas fa- fa-2x text-gray-300"></i>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                <h5>Ultrasonic Distance - HC-SR04</h5></div>
+                                                <p id="distance">Distance: N/A</p>
+
+                                                <div >
+                                                    <button type="button" id="distanceStartBtn" class="btn btn-outline-success mr-3">Start Reading</button>
+                                                <button type="button" id="distanceStopBtn" class="btn btn-outline-danger">Stop Reading</button>
+                                                </div>
+                                        </div>
+                                        <!-- <div class="col-auto">
+                                            <i class="fas fa- fa-2x text-gray-300"></i>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                <h5>Temperature - LM35</h5></div>
+                                                <p id="temperature">Temperature - N/A</p>
+
+                                                <div >
+                                                    <button type="button" id="temperatureStartBtn" class="btn btn-outline-success mr-3">Start Reading</button>
+                                                <button type="button" id="temperatureStopBtn" class="btn btn-outline-danger">Stop Reading</button>
+                                                </div>
+                                        </div>
+                                        <!-- <div class="col-auto">
+                                            <i class="fas fa- fa-2x text-gray-300"></i>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                       
+
+                     
+
+                        
+
+                        <!-- Temp Faren Card Example -->
+                        <!-- <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Temperature in Farenggerge</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><h3>112</h3></div>
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+
+                    <!-- Content Row -->
+                    <br>
+                    <div class="row align-items-center justify-content-center">
+
+                        <!-- Area Chart -->
+                        <div class="col-lg-6">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ultrasonic Sensor</h6>
+                                   
+                                </div>
+                                <!-- Card Body -->
+                                <div id="chart" style="width: 860px; height: 500px"></div>
+
+                            </div>
+                        </div>
+                        
+
+
+                    </div>
+
+                    <!-- Content Row -->
+                    
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+          
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+  
     <script>
         const APIRoutes = {
             ledOn : "/api/led/on",
@@ -51,9 +217,11 @@
         let u_intervalId = null;
 
         async function fetchDistance() {
+            let datas=[];
             const response = await fetch(APIRoutes.ultrasonicDst);
             const data = await response.json();
             distanceElement.textContent = `Distance: ${data.distance} cm`;
+            datas.push(data.distance);
         }
 
         startButton.addEventListener("click", () => {
@@ -97,6 +265,57 @@
             t_startButton.disabled = false;
             t_stopButton.disabled = true;
         });
+
+
+        google.charts.load('current', {
+      packages: ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      var maxDataPoints = 10;
+      var chart = new google.visualization.LineChart($('#chart')[0]); //#A
+      var data = google.visualization.arrayToDataTable([ //#B
+        ['Time', 'Temperature'],
+        [getTime(), 0]
+      ]);
+
+      var options = { //#C
+        title: 'Temperature',
+        curveType: 'function',
+        animation: {
+          duration: 1000,
+          easing: 'in'
+        },
+        legend: {
+          position: 'bottom'
+        }
+      }
+
+      function addDataPoint(dataPoint) { //#D
+        if (data.getNumberOfRows() > maxDataPoints) {
+          data.removeRow(0);
+        }
+        data.addRow([getTime(), dataPoint.value]);
+        chart.draw(data, options); //#E
+      };
+
+      function getTime() {
+        var d = new Date();
+        return d.toLocaleTimeString();
+      };
+
+      function doPoll() { //#F
+        $.getJSON('http://devices.webofthings.io/pi/sensors/temperature/value',
+          function(result) {
+            addDataPoint(result); //#G
+            setTimeout(doPoll, 2000);
+          });
+      };
+      doPoll();
+    };
     </script>
+
 </body>
+
 </html>
