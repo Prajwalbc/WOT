@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 
 var board = new five.Board();
 var led;
-var proximity;
+var USDistance;
 var thermometer;
 
 board.on("ready", () => {
@@ -30,7 +30,8 @@ board.on("ready", () => {
   });
 
   proximity.on("change", () => {
-    // const { centimeters, inches } = proximity;
+    const { centimeters, inches } = proximity;
+    USDistance = centimeters;
     // console.log(centimeters + " cm");
     // console.log(inches + " inches");
     // console.log("-----------");
@@ -64,8 +65,9 @@ app.get("/api/led/off", (req, res) => {
 
 // Ultrasonic api
 app.get("/api/getDistance", async (req, res) => {
-  const { centimeters } = proximity;
-  res.json({ distance: centimeters });
+  // const { centimeters } = proximity;
+  // console.log(USDistance);
+  res.json({ distance: USDistance });
 });
 
 // Temperature api
